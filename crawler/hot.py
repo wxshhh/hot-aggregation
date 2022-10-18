@@ -131,6 +131,4 @@ if __name__ == '__main__':
     data = [weibo, zhihu, bilibili, tieba]
     for item in data:
         save(item)
-
-    # print(type(Topic(0, 0, 0).__class__))
     pass
