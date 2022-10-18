@@ -1,4 +1,13 @@
-This is a test repository！
+# 热搜整合系统
 
-# Hello World
+#### 项目简介
+
+本项目是一个基于Python Flask和Vue的热搜整合系统，通过爬虫收集了目前主流平台如微博、B站、微博等的每日热搜信息
+
+### 使用到的技术
+
+
+
+### 部署说明
+
 
