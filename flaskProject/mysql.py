@@ -4,12 +4,13 @@
 # USERNAME='root'
 # PASSWORD='root'
 # DATABASE='data'
+import time
 
 # select * from character
 
-import pymysql
-
 import pandas as pd
+import pymysql
+import datetime
 
 
 # 用面向对象的方式编写，更加熟悉面向对象代码风格
@@ -26,50 +27,97 @@ class Mysql_csv(object):
         self.connect.close()
         self.cursor.close()
 
-    def read_csv_colnmus(self):
-        # 读取csv文件的列索引，用于建立数据表时的字段
-        csv_name = 'Tieba(2022,10,15).csv'
-        data = pd.read_csv(csv_name, encoding="utf-8")
-        return data
-
-    def read_csv_values(self):
-        # 读取csv文件数据
-        csv_name = 'Tieba(2022,10,15).csv'
-        data = pd.read_csv(csv_name, encoding="utf-8")
-        data_3 = list(data.values)
-        return data_3
-
     def write_mysql(self):
-        # 在数据表中写入数据，因为数据是列表类型，把他转化为元组更符合sql语句
-        for i in self.read_csv_values():  # 因为数据是迭代列表，所以用循环把数据提取出来
-            data_6 = tuple(i)
-            sql = """insert into tieba values{}""".format(data_6)
+        # 在数据表中写入数据
+        t = time.localtime()
+        zhihu_csv_name = 'C:/Users/徐越/Downloads/flaskProject-master/Zhihu(2022,10,15).csv'
+        weibo_csv_name = 'C:/Users/徐越/Downloads/flaskProject-master/Weibo(2022,10,15).csv'
+        tieba_csv_name = 'C:/Users/徐越/Downloads/flaskProject-master/Tieba(2022,10,15).csv'
+        bilibili_csv_name = 'C:/Users/徐越/Downloads/flaskProject-master/Bilibili(2022,10,15).csv'
+        data1 = pd.read_csv(zhihu_csv_name, encoding="utf-8")
+        data_1 = list(data1.values)
+        data2 = pd.read_csv(weibo_csv_name, encoding="utf-8")
+        data_2 = list(data2.values)
+        data3 = pd.read_csv(tieba_csv_name, encoding="utf-8")
+        data_3 = list(data3.values)
+        data4 = pd.read_csv(bilibili_csv_name, encoding="utf-8")
+        data_4 = list(data4.values)
+        for i in data_1:  # 提取数据到元组
+            data = tuple(i)
+            today = datetime.date.today()
+            formatted_today = today.strftime('%y%m%d')  # 添加当前时间
+            # print(formatted_today)
+            time_tuple = (formatted_today,)
+            data_ = data + time_tuple
+            # print(data_)
+            sql = """insert into zhihu values{}""".format(data_)
             self.cursor.execute(sql)
             self.commit()
-        print("\n数据植入完成")
+        print("\n知乎数据植入完成")
+        for i in data_2:  # 提取数据到元组
+            data = tuple(i)
+            today = datetime.date.today()
+            formatted_today = today.strftime('%y%m%d')  # 添加当前时间
+            # print(formatted_today)
+            time_tuple = (formatted_today,)
+            data_ = data + time_tuple
+            # print(data_)
+            sql = """insert into weibo values{}""".format(data_)
+            self.cursor.execute(sql)
+            self.commit()
+        print("\n微博数据植入完成")
+        for i in data_3:  # 提取数据到元组
+            data = tuple(i)
+            today = datetime.date.today()
+            formatted_today = today.strftime('%y%m%d')  # 添加当前时间
+            # print(formatted_today)
+            time_tuple = (formatted_today,)
+            data_ = data + time_tuple
+            # print(data_)
+            sql = """insert into tieba values{}""".format(data_)
+            self.cursor.execute(sql)
+            self.commit()
+        print("\n贴吧数据植入完成")
+        for i in data_4:  # 提取数据到元组
+            data = tuple(i)
+            today = datetime.date.today()
+            formatted_today = today.strftime('%y%m%d')  # 添加当前时间
+            # print(formatted_today)
+            time_tuple = (formatted_today,)
+            data_ = data + time_tuple
+            # print(data_)
+            sql = """insert into bilibili values{}""".format(data_)
+            self.cursor.execute(sql)
+            self.commit()
+        print("\nB站数据植入完成")
 
     def commit(self):
         # 定义一个确认事务运行
         self.connect.commit()
 
     def create(self):
-        # 若已有数据表weather_year_db，则删除
-        query = "drop table if exists tieba;"
-        self.cursor.execute(query)
+        # 若已有数据表，则删除
+        # query = "drop table if exists zhihu;"
+        # self.cursor.execute(query)
         # 创建数据表，用刚才提取的列索引作为字段
-        data_2 = self.read_csv_colnmus()
-        sql = "create table if not exists tieba(id INT not null,`rank` INT not null,title varchar(255) not null,link varchar(255) not null,image_url varchar(255) not null,`describe` varchar(255) not null,heat varchar(50) not null,primary key(`rank`))default charset=utf8;"
-        # sql = "create table if not exists weather_year_db(date_time DATETIME not null,high varchar(50) not null,low varchar(50) not null,weather varchar(50) not null,primary key(date_time))default charset=utf8;"
-        self.cursor.execute(sql)
+        # ！！！sql4注释掉的内容为添加了like字段后的sql语句
+        sql1 = "create table if not exists tieba(id INT not null,`rank` INT not null,title varchar(255) not null,link varchar(255) not null,image_url varchar(255) not null,`describe` varchar(255) not null,heat varchar(50) not null,`date` varchar(50) not null,primary key(`rank`,`date`))default charset=utf8;"
+        sql2 = "create table if not exists zhihu(id INT not null,`rank` INT not null,title varchar(255) not null,link varchar(255) not null,image_url varchar(255) not null,`describe` varchar(255) not null,heat varchar(50) not null,`date` varchar(50) not null,primary key(`rank`,`date`))default charset=utf8;"
+        sql3 = "create table if not exists weibo(id INT not null,`rank` INT not null,title varchar(255) not null,link varchar(255) not null,`date` varchar(50) not null,primary key(id,`date`))default charset=utf8;"
+        sql4 = "create table if not exists bilibili(id INT not null,`rank` INT not null,title varchar(255) not null,link varchar(255) not null,image_url varchar(255) not null,`describe` varchar(255) not null,author varchar(255) not null,view varchar(10) not null,reply varchar(10) not null,favorite varchar(10) not null,coin varchar(10) not null,share varchar(10) not null,`date` varchar(50) not null,primary key(`rank`,`date`))default charset=utf8;"
+        # sql4 = "create table if not exists bilibili(id INT not null,`rank` INT not null,title varchar(255) not null,link varchar(255) not null,image_url varchar(255) not null,`describe` varchar(255) not null,author varchar(255) not null,view varchar(10) not null,like varchar(10) not null,reply varchar(10) not null,favorite varchar(10) not null,coin varchar(10) not null,share varchar(10) not null,`date` varchar(50) not null,primary key(`rank`,`date`))default charset=utf8;"
+        self.cursor.execute(sql1)
+        self.cursor.execute(sql2)
+        self.cursor.execute(sql3)
+        self.cursor.execute(sql4)
         self.commit()
 
-    # 运行程序，记得要先调用创建数据的类，在创建写入数据的类
+    # 运行程序
     def run(self):
-        self.create()
+        self.create()   #建表语句，完成后注释
         self.write_mysql()
 
 
-# 最后用一个main()函数来封装
 def main():
     sql = Mysql_csv()
     sql.run()
