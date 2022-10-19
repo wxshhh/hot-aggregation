@@ -9,6 +9,9 @@ import requests
 from bs4 import BeautifulSoup
 from model.topic import *
 
+default_img_url = "https://www.bing.com/images/search?q=%E6%9A%82%E6%97%A0%E5%9B%BE%E7%89%87&FORM=IQFRBA&id=9D8F61B67D0BBB8A38F68E86DC0CA5D1166B381D"
+default_desc = "无"
+
 
 def get_page(url, is_json=False):
     headers = {
@@ -33,8 +36,12 @@ def get_zhihu():
     id = 1
     for topic in hot_list:
         title = topic['target']['titleArea']['text']
-        desc = topic['target']['excerptArea']['text'][:100]
+        desc = topic['target']['excerptArea']['text']
+        if desc in ("", "-"):
+            desc = default_desc
         image_url = topic['target']['imageArea']['url']
+        if image_url is "":
+            image_url = default_img_url
         heat = topic['target']['metricsArea']['text']
         link = topic['target']['link']['url']
         zhihu = Zhihu(id, title, desc, image_url, link, heat)
@@ -53,6 +60,7 @@ def get_weibo():
         title = topic.find("a").text[1:-1]
         link = "https://s.weibo.com/weibo?q=%23" + title + "%23"
         weibo = Weibo(id, title, link)
+        id = id + 1
         data.append(weibo)
     return data
 
@@ -66,7 +74,11 @@ def get_tieba():
     for topic in topic_list:
         title = topic.find('a', class_='topic-text').text
         desc = topic.find('p', class_='topic-top-item-desc').text
+        if desc in ("", "-"):
+            desc = default_desc
         image_url = topic.find('img', class_='topic-cover').attrs['src']
+        if image_url is "":
+            image_url = default_img_url
         heat = topic.find('span', class_='topic-num').text
         link = topic.find('a', class_='topic-text').attrs['href']
         tieba = Tieba(id, title, desc, image_url, link, heat)
@@ -85,8 +97,12 @@ def get_bilibili():
     id = 1
     for topic in topic_list:
         title = topic["title"]
-        describe = topic["desc"]
+        desc = topic["desc"]
+        if desc in ("", "-"):
+            desc = default_desc
         image_url = topic["pic"]
+        if image_url is "":
+            image_url = default_img_url
         link = topic["short_link"]
         author = topic["owner"]["name"]
         view = topic["stat"]["view"]
@@ -95,7 +111,7 @@ def get_bilibili():
         favorite = topic["stat"]["favorite"]
         coin = topic["stat"]["coin"]
         share = topic["stat"]["share"]
-        bilibili = Bilibili(id, title, describe, image_url, link, author, view, like, reply, favorite, coin
+        bilibili = Bilibili(id, title, desc, image_url, link, author, view, like, reply, favorite, coin
                             , share)
         id = id + 1
         data.append(bilibili)
