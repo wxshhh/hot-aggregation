@@ -27,8 +27,7 @@ def process_data(data):
 
 
 if __name__ == '__main__':
-    data = get_data(['data/Weibo(2022,10,15).csv', 'data/Tieba(2022,10,15).csv', 'data/Zhihu(2022,10,15).csv',
-                     'data/Bilibili(2022,10,15).csv'])
+    data = get_data(['data/Weibo(2022,10,19).csv'])
     data = process_data(data)
     # counter = Counter(data)
     # top = [word[0] for word in counter.most_common(30)]

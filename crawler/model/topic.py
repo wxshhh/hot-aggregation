@@ -21,7 +21,7 @@ class Zhihu(Topic):
         self.heat = heat
 
     def to_list(self):
-        return [self.id, self.title, self.describe, self.image_url, self.link, self.heat]
+        return [self.id, self.title, self.link, self.image_url, self.describe, self.heat]
 
 
 class Weibo(Topic):

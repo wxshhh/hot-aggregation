@@ -2,6 +2,7 @@ import pprint
 import re
 import time
 import os
+import sys
 
 import pandas as pd
 
@@ -9,11 +10,19 @@ import requests
 from bs4 import BeautifulSoup
 from model.topic import *
 
+# 默认图片字段
 default_img_url = "https://www.bing.com/images/search?q=%E6%9A%82%E6%97%A0%E5%9B%BE%E7%89%87&FORM=IQFRBA&id=9D8F61B67D0BBB8A38F68E86DC0CA5D1166B381D"
+# 默认描述字段
 default_desc = "无"
 
 
 def get_page(url, is_json=False):
+    """
+    根据传入url，获取对应页面的BeautifulSoup解析结果
+    :param url:
+    :param is_json: 当该字段为True事，说明求情的url返回的结果为json格式，无需再用BeautifulSoup解析
+    :return:
+    """
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 Edg/106.0.1370.37',
     }
@@ -25,6 +34,11 @@ def get_page(url, is_json=False):
 
 
 def get_zhihu():
+    """
+    获取当天的知乎热搜
+    id, title, desc, image_url, link, heat
+    :return:
+    """
     data = []
     url = 'https://www.zhihu.com/billboard'
     soup = get_page(url)
@@ -51,6 +65,11 @@ def get_zhihu():
 
 
 def get_weibo():
+    """
+    获取当天的微博热搜
+    id, title, link
+    :return:
+    """
     data = []
     url = 'https://weibo.cn/pub/'
     soup = get_page(url)
@@ -66,6 +85,11 @@ def get_weibo():
 
 
 def get_tieba():
+    """
+    获取当天的贴吧热搜
+    id, title, desc, image_url, link, heat
+    :return:
+    """
     data = []
     url = 'https://tieba.baidu.com/hottopic/browse/topicList?res_type=1'
     soup = get_page(url)
@@ -88,7 +112,11 @@ def get_tieba():
 
 
 def get_bilibili():
-    # id, title, describe, image_url, link, author, view, reply, favorite, coin, share
+    """
+    获取当天的b站热搜
+    id, title, describe, image_url, link, author, view, reply, favorite, coin, share
+    :return:
+    """
     data = []
     url = "https://api.bilibili.com/x/web-interface/popular?ps=20&pn=1"
     result = get_page(url, is_json=True)
@@ -119,6 +147,11 @@ def get_bilibili():
 
 
 def save(data):
+    """
+    将获取到的data保存为csv文件格式：站点(yyyy,MM,dd).csv
+    :param data:
+    :return:
+    """
     idx = 0
     for item in data[0].__dir__():
         if item.startswith("__"):
@@ -131,7 +164,7 @@ def save(data):
         df.loc[len(df.index)] = item.to_list()
     print(df.head())
     t = time.localtime()
-    filename = "data/" + type(data[0]).__name__ + "({},{},{})".format(t.tm_year, t.tm_mon, t.tm_mday) + ".csv"
+    filename = os.getcwd()[:-7] + type(data[0]).__name__ + "({},{},{})".format(t.tm_year, t.tm_mon, t.tm_mday) + ".csv"
     if os.path.exists(filename):
         print("文件已存在！！！")
         return
@@ -147,4 +180,5 @@ if __name__ == '__main__':
     data = [weibo, zhihu, bilibili, tieba]
     for item in data:
         save(item)
+    # print()
     pass
