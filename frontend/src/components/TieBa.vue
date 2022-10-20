@@ -11,20 +11,7 @@
         <el-col :span="18">
             <el-row>
                 <el-col :span="2">
-                    <div v-if="item.rank==1" style="padding-top:10px;padding-right:5px;">
-                        <img src="https://www.suredian.com/static/images/index/top1.svg" width="50" alt="">
-                    </div>
-                    <div v-else-if="item.rank==2" style="padding-top:10px;padding-right:5px;">
-                        <img src="https://www.suredian.com/static/images/index/top2.svg" width="50" alt="">
-                    </div>
-                    <div v-else-if="item.rank==3" style="padding-top:10px;padding-right:5px;">
-                        <img src="https://www.suredian.com/static/images/index/top3.svg" width="50" alt="">
-                    </div>
-                    <div v-else>
-                        <h1 style="text-align:center;">
-                            NO.{{item.rank}}
-                        </h1>
-                    </div>
+                    <RankComponent :rank="item.rank"></RankComponent>
                 </el-col>
                 <el-col :span="22">
                     <el-link :underline="false" :href=item.link target="_blank">
@@ -40,20 +27,47 @@
                 </div>
             </el-row>
             <el-row>
-                热度：{{item.heat}}
+                <div class="heatShow">
+                    热度：{{item.heat}}
+                </div>
             </el-row>
         </el-col>
     </el-row>
 </template>
 <script>
-
+import RankComponent from './RankComponent.vue'
+import { ref } from 'vue'
+import { http } from '../untils/request.js'
 export default {
-    component:{
-        
+    props: ['date'],
+    components: {
+        RankComponent
     },
-    props: ['data'],
-    setup() {
-
+    setup(props) {
+        let data = ref(null);
+        const getData = async function (date) {
+            let day = date.getDate()
+            let month = date.getMonth() + 1
+            let year = date.getFullYear() % 100;
+            try {
+                const response = await http.get('tieba?date=' + year + month + day);
+                data.value = response.data;
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        getData(props.date)
+        return {
+            data,
+            getData
+        }
     }
 }
 </script>
+<style>
+.heatShow {
+    font-size: 13px;
+    margin-top: 10px;
+    color: #8d9298;
+}
+</style>
