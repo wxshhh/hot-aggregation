@@ -4,6 +4,7 @@
 # USERNAME='root'
 # PASSWORD='root'
 # DATABASE='data'
+import os
 import time
 
 # select * from character
@@ -30,10 +31,18 @@ class Mysql_csv(object):
     def write_mysql(self):
         # 在数据表中写入数据
         t = time.localtime()
-        zhihu_csv_name = 'C:/Users/徐越/Downloads/flaskProject-master/Zhihu(2022,10,15).csv'
-        weibo_csv_name = 'C:/Users/徐越/Downloads/flaskProject-master/Weibo(2022,10,15).csv'
-        tieba_csv_name = 'C:/Users/徐越/Downloads/flaskProject-master/Tieba(2022,10,15).csv'
-        bilibili_csv_name = 'C:/Users/徐越/Downloads/flaskProject-master/Bilibili(2022,10,15).csv'
+
+        # zhihu_csv_name = 'C:/Users/徐越/Downloads/flaskProject-master/Zhihu(2022,10,15).csv'
+        # weibo_csv_name = 'C:/Users/徐越/Downloads/flaskProject-master/Weibo(2022,10,15).csv'
+        # tieba_csv_name = 'C:/Users/徐越/Downloads/flaskProject-master/Tieba(2022,10,15).csv'
+        # bilibili_csv_name = 'C:/Users/徐越/Downloads/flaskProject-master/Bilibili(2022,10,15).csv'
+        path = os.getcwd()
+        path = path.replace("\\", "/")
+        zhihu_csv_name = path + "/data/Zhihu" + "({},{},{})".format(t.tm_year, t.tm_mon, t.tm_mday) + ".csv"
+        weibo_csv_name = path + "/data/Weibo" + "({},{},{})".format(t.tm_year, t.tm_mon, t.tm_mday) + ".csv"
+        tieba_csv_name = path + "/data/Tieba" + "({},{},{})".format(t.tm_year, t.tm_mon, t.tm_mday) + ".csv"
+        bilibili_csv_name = path + "/data/Bilibili" + "({},{},{})".format(t.tm_year, t.tm_mon, t.tm_mday) + ".csv"
+        print(zhihu_csv_name)
         data1 = pd.read_csv(zhihu_csv_name, encoding="utf-8")
         data_1 = list(data1.values)
         data2 = pd.read_csv(weibo_csv_name, encoding="utf-8")
@@ -100,12 +109,12 @@ class Mysql_csv(object):
         # query = "drop table if exists zhihu;"
         # self.cursor.execute(query)
         # 创建数据表，用刚才提取的列索引作为字段
-        # ！！！sql4注释掉的内容为添加了like字段后的sql语句
+        # ！！！sql4注释掉的内容为添加like字段之前的sql语句
         sql1 = "create table if not exists tieba(id INT not null,`rank` INT not null,title varchar(255) not null,link varchar(255) not null,image_url varchar(255) not null,`describe` varchar(255) not null,heat varchar(50) not null,`date` varchar(50) not null,primary key(`rank`,`date`))default charset=utf8;"
         sql2 = "create table if not exists zhihu(id INT not null,`rank` INT not null,title varchar(255) not null,link varchar(255) not null,image_url varchar(255) not null,`describe` varchar(255) not null,heat varchar(50) not null,`date` varchar(50) not null,primary key(`rank`,`date`))default charset=utf8;"
         sql3 = "create table if not exists weibo(id INT not null,`rank` INT not null,title varchar(255) not null,link varchar(255) not null,`date` varchar(50) not null,primary key(id,`date`))default charset=utf8;"
-        sql4 = "create table if not exists bilibili(id INT not null,`rank` INT not null,title varchar(255) not null,link varchar(255) not null,image_url varchar(255) not null,`describe` varchar(255) not null,author varchar(255) not null,view varchar(10) not null,reply varchar(10) not null,favorite varchar(10) not null,coin varchar(10) not null,share varchar(10) not null,`date` varchar(50) not null,primary key(`rank`,`date`))default charset=utf8;"
-        # sql4 = "create table if not exists bilibili(id INT not null,`rank` INT not null,title varchar(255) not null,link varchar(255) not null,image_url varchar(255) not null,`describe` varchar(255) not null,author varchar(255) not null,view varchar(10) not null,like varchar(10) not null,reply varchar(10) not null,favorite varchar(10) not null,coin varchar(10) not null,share varchar(10) not null,`date` varchar(50) not null,primary key(`rank`,`date`))default charset=utf8;"
+        # sql4 = "create table if not exists bilibili(id INT not null,`rank` INT not null,title varchar(255) not null,link varchar(255) not null,image_url varchar(255) not null,`describe` varchar(255) not null,author varchar(255) not null,view varchar(10) not null,reply varchar(10) not null,favorite varchar(10) not null,coin varchar(10) not null,share varchar(10) not null,`date` varchar(50) not null,primary key(`rank`,`date`))default charset=utf8;"
+        sql4 = "create table if not exists bilibili(id INT not null,`rank` INT not null,title varchar(255) not null,link varchar(255) not null,image_url varchar(255) not null,`describe` varchar(255) not null,author varchar(255) not null,view varchar(10) not null,like varchar(10) not null,reply varchar(10) not null,favorite varchar(10) not null,coin varchar(10) not null,share varchar(10) not null,`date` varchar(50) not null,primary key(`rank`,`date`))default charset=utf8;"
         self.cursor.execute(sql1)
         self.cursor.execute(sql2)
         self.cursor.execute(sql3)
@@ -114,7 +123,7 @@ class Mysql_csv(object):
 
     # 运行程序
     def run(self):
-        self.create()   #建表语句，完成后注释
+        self.create()
         self.write_mysql()
 
 
