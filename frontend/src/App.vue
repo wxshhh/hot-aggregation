@@ -10,7 +10,7 @@
                 style="width: 50%;" />
             </el-col>
           </el-row>
-          <el-menu active-text-color="#ffd04b" default-active="1-1" style="margin-top:15px">
+          <el-menu active-text-color="#ffd04b" default-active="1-1" style="margin-top:15px;border-radius: 8px;">
             <el-menu-item index="1-1" @click="clickBilibili"><img
                 src="https://www.suredian.com/static/images/res/bilibili.svg" alt="" width="30"
                 style="margin-right:8px">哔哩哔哩</el-menu-item>
@@ -40,15 +40,15 @@ import TieBa from './components/TieBa.vue'
 import WeiBo from './components/WeiBo.vue'
 import ZhiHu from './components/ZhiHu.vue'
 import { ref, watch } from 'vue'
-import axios from "axios";
 
+// import axios from "axios";
 
-const http = axios.create({
-  baseURL: '',
-  timeout: 1000 * 60 * 2,
-  withCredentials: true,
-})
-http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+// const http = axios.create({
+//   baseURL: '',
+//   timeout: 1000 * 60 * 2,
+//   withCredentials: true,
+// })
+// http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 export default {
   name: 'App',
