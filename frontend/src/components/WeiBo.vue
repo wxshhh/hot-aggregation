@@ -4,7 +4,7 @@
         <span style="font-size:40px;padding: 10px;">微博</span>
     </el-row>
     <el-row v-for="item in data" :key="item.id" :gutter="0"
-        style="padding: 14px; margin:5px; background-color: white;border-radius: 8px">
+        style="padding: 14px; margin:5px; background-color: white;border-radius: 8px;width: 1100px;">
         <el-col>
             <el-row :gutter="5">
                 <el-col :span="2">
@@ -51,3 +51,4 @@ export default {
     }
 }
 </script>
+
