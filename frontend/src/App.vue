@@ -4,9 +4,10 @@
       <el-aside>
         <el-affix :offset="60">
           <el-row>
-            <el-col style="margin:auto">
-              选择日期:
-              <el-date-picker v-model="date" type="date" placeholder="Pick a date" :disabled-date="disabledDate" />
+            <el-col style="display: flex; justify-content: center;align-items:center">
+              选择日期：
+              <el-date-picker v-model="date" type="date" placeholder="Pick a date" :disabled-date="disabledDate"
+                style="width: 50%;" />
             </el-col>
           </el-row>
           <el-menu active-text-color="#ffd04b" default-active="1-1" style="margin-top:15px">
@@ -26,7 +27,7 @@
         </el-affix>
       </el-aside>
       <el-main style="width:80%;">
-        <component :is="currentComponent" :date="date" ref="childrenRef" />
+        <component :is="currentComponent" :date="date" ref="childrenRef" :data="data" @submit="submit" />
       </el-main>
     </el-container>
   </div>
@@ -58,6 +59,12 @@ export default {
     ZhiHu,
   },
   setup() {
+    let data = ref({
+      bilibili: null,
+      tieba: null,
+      weibo: null,
+      zhihu: null
+    });
     let date = ref(new Date());
     let currentComponent = ref('BiLiBiLi');
     let childrenRef = ref();
@@ -73,22 +80,40 @@ export default {
     const clickZhiHu = () => {
       currentComponent.value = 'ZhiHu';
     }
+    const submit = (target, val) => {
+      if (target == 'bilibili') {
+        data.value.bilibili = val;
+      }
+      else if (target == 'tieba') {
+        data.value.tieba = val;
+      }
+      else if (target == 'weibo') {
+        data.value.weibo = val;
+      }
+      else {
+        data.value.zhihu = val;
+      }
+      // console.log(val);
+      // console.log(data.value)
+    }
     const disabledDate = (time) => {
       return time.getTime() > Date.now() || time.getTime() < 1666000000000;
     }
-
-    function test() {
-      console.log(childrenRef.value);
-      childrenRef.value.isChild()
-    }
     watch(date, (newDate) => {
+      data.value = {
+        bilibili: null,
+        tieba: null,
+        weibo: null,
+        zhihu: null
+      };
       childrenRef.value.getData(newDate);
     })
     return {
-      test,
+      data,
       date,
       currentComponent,
       childrenRef,
+      submit,
       clickBilibili,
       clickTieBa,
       clickWeiBo,
@@ -115,11 +140,13 @@ body {
   background-color: #F5F7FA;
   display: flex;
   justify-content: center;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .demo-date-picker {
   display: flex;
-  width: 100%;
+  width: 200px;
   padding: 0;
   flex-wrap: wrap;
 }
