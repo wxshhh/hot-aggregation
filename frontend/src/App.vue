@@ -23,11 +23,15 @@
             <el-menu-item index="1-4" @click="clickZhiHu"><img
                 src="https://www.suredian.com/static/images/res/zhihu.svg" alt="" width="30" style="margin-right:8px">知乎
             </el-menu-item>
+            <el-menu-item index="1-5" @click="clickCiYun"><img src="./assets/ciyun.png" alt="" width="30"
+                style="margin-right:8px">词云
+            </el-menu-item>
           </el-menu>
         </el-affix>
       </el-aside>
       <el-main style="width:80%;">
         <component :is="currentComponent" :date="date" ref="childrenRef" :data="data" @submit="submit" />
+        <!-- <CiYun :date="date" ref="ciYun" :data="data" @submit="submit" /> -->
       </el-main>
     </el-container>
   </div>
@@ -39,16 +43,8 @@ import BiLiBiLi from './components/BiLiBiLi.vue'
 import TieBa from './components/TieBa.vue'
 import WeiBo from './components/WeiBo.vue'
 import ZhiHu from './components/ZhiHu.vue'
+import CiYun from './components/CiYun.vue'
 import { ref, watch } from 'vue'
-
-// import axios from "axios";
-
-// const http = axios.create({
-//   baseURL: '',
-//   timeout: 1000 * 60 * 2,
-//   withCredentials: true,
-// })
-// http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 export default {
   name: 'App',
@@ -57,13 +53,15 @@ export default {
     TieBa,
     WeiBo,
     ZhiHu,
+    CiYun
   },
   setup() {
     let data = ref({
       bilibili: null,
       tieba: null,
       weibo: null,
-      zhihu: null
+      zhihu: null,
+      ciyun: null
     });
     let date = ref(new Date());
     let currentComponent = ref('BiLiBiLi');
@@ -80,6 +78,9 @@ export default {
     const clickZhiHu = () => {
       currentComponent.value = 'ZhiHu';
     }
+    const clickCiYun = () => {
+      currentComponent.value = 'CiYun';
+    }
     const submit = (target, val) => {
       if (target == 'bilibili') {
         data.value.bilibili = val;
@@ -93,8 +94,6 @@ export default {
       else {
         data.value.zhihu = val;
       }
-      // console.log(val);
-      // console.log(data.value)
     }
     const disabledDate = (time) => {
       return time.getTime() > Date.now() || time.getTime() < 1666000000000;
@@ -104,7 +103,8 @@ export default {
         bilibili: null,
         tieba: null,
         weibo: null,
-        zhihu: null
+        zhihu: null,
+        ciyun: null
       };
       childrenRef.value.getData(newDate);
     })
@@ -118,6 +118,7 @@ export default {
       clickTieBa,
       clickWeiBo,
       clickZhiHu,
+      clickCiYun,
       disabledDate
     }
   }
