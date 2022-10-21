@@ -1,5 +1,5 @@
 <template>
-  <div class="common-layout" style="">
+  <div class="common-layout">
     <el-container>
       <el-aside>
         <el-affix :offset="60">
