@@ -9,37 +9,37 @@
 </template>
 
 <script>
-import { ref } from 'vue'
-import { http } from '../untils/request.js'
-export default {
-    props: ['date', 'data'],
-    emits: ['submit'],
-    components: {
+// import { ref } from 'vue'
+// import { http } from '../untils/request.js'
+// export default {
+//     props: ['date', 'data'],
+//     emits: ['submit'],
+//     components: {
 
-    },
-    setup(props, { emit }) {
-        const ciyun = ref(props.data.ciyun);
-        const getData = async function (date) {
-            let day = date.getDate()
-            let month = date.getMonth() + 1
-            let year = date.getFullYear() % 100;
-            try {
-                const response = await http.get('ciyun?date=' + year + month + day);
-                emit('submit', 'ciyun', response.data);
-                ciyun.value = response.data;
-            } catch (error) {
-                console.error(error);
-            }
-        }
-        if (ciyun.value == null) {
-            getData(props.date)
-        }
-        return {
-            ciyun,
-            getData
-        }
-    }
-}
+//     },
+//     setup(props, { emit }) {
+//         const ciyun = ref(props.data.ciyun);
+//         const getData = async function (date) {
+//             let day = date.getDate()
+//             let month = date.getMonth() + 1
+//             let year = date.getFullYear() % 100;
+//             try {
+//                 const response = await http.get('ciyun?date=' + year + month + day);
+//                 emit('submit', 'ciyun', response.data);
+//                 ciyun.value = response.data;
+//             } catch (error) {
+//                 console.error(error);
+//             }
+//         }
+//         if (ciyun.value == null) {
+//             getData(props.date)
+//         }
+//         return {
+//             ciyun,
+//             getData
+//         }
+//     }
+// }
 </script>
 <style>
 .heatShow {
