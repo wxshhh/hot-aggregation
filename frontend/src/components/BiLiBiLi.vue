@@ -1,10 +1,10 @@
 <template>
     <el-col>
-        <el-row style="margin:auto">
+        <el-row style="margin:auto;width: 1100px; margin:5px;">
             <img src="https://www.suredian.com/static/images/res/bilibili.svg" alt="" width="50">
             <span style="font-size:40px;padding: 10px;">哔哩哔哩</span>
         </el-row>
-        <el-row v-for="item in data" :key="item.id" :gutter="0"
+        <el-row v-for="item in bilibili" :key="item.id" :gutter="0"
             style="padding: 14px; margin:5px; background-color: white;border-radius: 8px;width: 1100px;">
             <el-col :span="6" style="max-width:290px">
                 <img :src=item.image_url class="image" crossorigin='anonymous' width="250" style="border-radius: 8px" />
@@ -115,26 +115,30 @@ import RankComponent from './RankComponent.vue'
 import { ref } from 'vue'
 import { http } from '../untils/request.js'
 export default {
-    props: ['date'],
+    props: ['date', 'data',],
+    emits: ['submit'],
     components: {
         RankComponent
     },
-    setup(props) {
-        let data = ref(null);
+    setup(props, { emit }) {
+        const bilibili = ref(props.data.bilibili);
         const getData = async function (date) {
             let day = date.getDate()
             let month = date.getMonth() + 1
             let year = date.getFullYear() % 100;
             try {
                 const response = await http.get('bilibili?date=' + year + month + day);
-                data.value = response.data;
+                bilibili.value = response.data;
+                emit('submit', 'bilibili', response.data);
             } catch (error) {
                 console.error(error);
             }
         }
-        getData(props.date)
+        if (bilibili.value == null) {
+            getData(props.date)
+        }
         return {
-            data,
+            bilibili,
             getData
         }
     }
