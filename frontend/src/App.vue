@@ -1,16 +1,15 @@
 <template>
   <div class="common-layout">
     <el-container>
-      <el-aside width="20%">
+      <el-aside>
         <el-affix :offset="60">
           <el-row>
-            <div style="margin:auto">
+            <el-col style="margin:auto">
               选择日期:
-            </div>
-            <el-date-picker v-model="date" type="date" placeholder="Pick a date" :disabled-date="disabledDate"
-              style="margin:auto" />
+              <el-date-picker v-model="date" type="date" placeholder="Pick a date" :disabled-date="disabledDate" />
+            </el-col>
           </el-row>
-          <el-menu active-text-color="#ffd04b" class="el-menu-demo" default-active="1-1" style="border-radius: 8px;margin-top:10px; ">
+          <el-menu active-text-color="#ffd04b" default-active="1-1" style="margin-top:15px">
             <el-menu-item index="1-1" @click="clickBilibili"><img
                 src="https://www.suredian.com/static/images/res/bilibili.svg" alt="" width="30"
                 style="margin-right:8px">哔哩哔哩</el-menu-item>
@@ -26,7 +25,7 @@
           </el-menu>
         </el-affix>
       </el-aside>
-      <el-main>
+      <el-main style="width:80%;">
         <component :is="currentComponent" :date="date" ref="childrenRef" />
       </el-main>
     </el-container>
@@ -40,11 +39,6 @@ import TieBa from './components/TieBa.vue'
 import WeiBo from './components/WeiBo.vue'
 import ZhiHu from './components/ZhiHu.vue'
 import { ref, watch } from 'vue'
-// import {
-//   Document,
-//   Location,
-//   Setting,
-// } from '@element-plus/icons-vue'
 import axios from "axios";
 
 
@@ -80,7 +74,7 @@ export default {
       currentComponent.value = 'ZhiHu';
     }
     const disabledDate = (time) => {
-      return time.getTime() > Date.now()
+      return time.getTime() > Date.now() || time.getTime() < 1666000000000;
     }
 
     function test() {
@@ -94,14 +88,11 @@ export default {
       test,
       date,
       currentComponent,
+      childrenRef,
       clickBilibili,
       clickTieBa,
       clickWeiBo,
       clickZhiHu,
-      // Document,
-      // Location,
-      // Setting,
-      childrenRef,
       disabledDate
     }
   }
@@ -115,12 +106,15 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  /* text-align: center; */
-  /* margin-top: 60px; */
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 body {
   background-color: #F5F7FA;
+  display: flex;
+  justify-content: center;
 }
 
 .demo-date-picker {
@@ -129,11 +123,24 @@ body {
   padding: 0;
   flex-wrap: wrap;
 }
-.is-active{
-  background-color:  #d9ecff;
+
+.el-menu-demo {
+  background-color: aqua
 }
+
+.is-active {
+  background-color: #d9ecff;
+}
+
 .el-menu-item {
   border-radius: 8px;
+}
+
+.common-layout {
+  display: flex;
+  justify-content: flex-start;
+  max-width: 2540px;
+  min-width: 1080px;
 }
 </style>
 

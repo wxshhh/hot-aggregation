@@ -4,9 +4,9 @@
         <span style="font-size:40px;padding: 10px;">百度贴吧</span>
     </el-row>
     <el-row v-for="item in data" :key="item.id" :gutter="0"
-        style="padding: 14px; margin:5px; background-color: white;border-radius: 8px">
+        style="padding: 14px; margin:5px; background-color: white;border-radius: 8px; width: 1100px;">
         <el-col :span="6">
-            <img :src=item.image_url class="image" width="250" height="156" />
+            <img :src=item.image_url class="image" width="250" height="156" style="border-radius: 8px" />
         </el-col>
         <el-col :span="18">
             <el-row>
@@ -69,5 +69,14 @@ export default {
     font-size: 13px;
     margin-top: 10px;
     color: #8d9298;
+}
+
+.describe {
+    word-break: break-all;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
 }
 </style>
