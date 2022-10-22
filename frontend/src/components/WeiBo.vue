@@ -7,16 +7,14 @@
         style="padding: 14px; margin:5px; background-color: white;border-radius: 8px;width: 1100px;">
         <el-col>
             <el-row :gutter="5">
-                <el-col :span="2">
-                    <RankComponent :rank="item.rank"></RankComponent>
-                </el-col>
-                <el-col :span="22">
-                    <el-link :underline="false" :href=item.link target="_blank">
-                        <h1>
-                            {{item.title}}
-                        </h1>
-                    </el-link>
-                </el-col>
+                <el-row style="display: flex; justify-content: flex-start;align-items:center;flex-wrap: nowrap">
+                        <RankComponent :rank="item.rank" style="margin-right:10px"></RankComponent>
+                        <el-link :underline="false" :href=item.link target="_blank">
+                            <h1 style="">
+                                {{item.title}}
+                            </h1>
+                        </el-link>
+                </el-row>
             </el-row>
         </el-col>
     </el-row>
