@@ -24,7 +24,7 @@
                 src="https://www.suredian.com/static/images/res/zhihu.svg" alt="" width="30" style="margin-right:8px">知乎
             </el-menu-item>
             <el-menu-item index="1-5" @click="clickCiYun"><img src="./assets/ciyun.png" alt="" width="30"
-                style="margin-right:8px">词云
+                style="margin-right:8px">今日热词
             </el-menu-item>
           </el-menu>
         </el-affix>
@@ -43,7 +43,7 @@ import BiLiBiLi from './components/BiLiBiLi.vue'
 import TieBa from './components/TieBa.vue'
 import WeiBo from './components/WeiBo.vue'
 import ZhiHu from './components/ZhiHu.vue'
-import CiYun from './components/CiYun.vue'
+import CiYun from './components/WordCloud.vue'
 import { ref, watch } from 'vue'
 
 export default {
@@ -96,7 +96,7 @@ export default {
       }
     }
     const disabledDate = (time) => {
-      return time.getTime() > Date.now() || time.getTime() < 1666000000000;
+      return time.getTime() > Date.now() || time.getTime() < 1666195200000;
     }
     watch(date, (newDate) => {
       data.value = {
@@ -104,7 +104,6 @@ export default {
         tieba: null,
         weibo: null,
         zhihu: null,
-        ciyun: null
       };
       childrenRef.value.getData(newDate);
     })

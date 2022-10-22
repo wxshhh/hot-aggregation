@@ -1,32 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cc834dde-79c8-45a4-8dfb-7706114ab8d2" name="Default Changelist" comment="进行前后端联调">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawler/hot.py" beforeDir="false" afterPath="$PROJECT_DIR$/crawler/hot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawler/word_cloud.py" beforeDir="false" afterPath="$PROJECT_DIR$/crawler/word_cloud.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flaskProject/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flaskProject/Bilibili(2022,10,15).csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/flaskProject/Tieba(2022,10,15).csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/flaskProject/Weibo(2022,10,15).csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/flaskProject/Zhihu(2022,10,15).csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/babel.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/babel.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/jsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/jsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/ciyun.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/ciyun.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/BiLiBiLi.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/CiYun.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/WordCloud.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/RankComponent.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/TieBa.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/WeiBo.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ZhiHu.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/untils/request.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/vue.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/vue.config.js" afterDir="false" />
+    <list default="true" id="cc834dde-79c8-45a4-8dfb-7706114ab8d2" name="Default Changelist" comment="修改词云">
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -220,7 +196,7 @@
       <updated>1666083583208</updated>
       <workItem from="1666083591094" duration="2157000" />
       <workItem from="1666085806133" duration="16748000" />
-      <workItem from="1666230892783" duration="29746000" />
+      <workItem from="1666230892783" duration="30070000" />
     </task>
     <task id="LOCAL-00001" summary="修改README">
       <created>1666084196536</created>
@@ -278,7 +254,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666270520494</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="修改词云">
+      <created>1666424437427</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1666424437427</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -313,7 +296,8 @@
     <MESSAGE value="修改README" />
     <MESSAGE value="对空白字段进行填充" />
     <MESSAGE value="进行前后端联调" />
-    <option name="LAST_COMMIT_MESSAGE" value="进行前后端联调" />
+    <MESSAGE value="修改词云" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改词云" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
