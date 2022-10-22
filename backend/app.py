@@ -8,7 +8,6 @@ import os
 
 app = Flask(__name__)
 # 配置全局跨域
-# cors = CORS(app, resources={r"/*": {"origins": "*"}})
 CORS(app, supports_credentials=True)
 app.config['JSON_AS_ASCII'] = False  # 打印中文
 

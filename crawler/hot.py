@@ -164,7 +164,7 @@ def save(data):
         df.loc[len(df.index)] = item.to_list()
     print(df.head())
     t = time.localtime()
-    filename = os.getcwd()[:-7] + type(data[0]).__name__ + "({},{},{})".format(t.tm_year, t.tm_mon, t.tm_mday) + ".csv"
+    filename = os.getcwd()[:-7].replace("\\", "/") + "data/" + type(data[0]).__name__ + "({},{},{})".format(t.tm_year, t.tm_mon, t.tm_mday) + ".csv"
     if os.path.exists(filename):
         print("文件已存在！！！")
         return
@@ -180,5 +180,5 @@ if __name__ == '__main__':
     data = [weibo, zhihu, bilibili, tieba]
     for item in data:
         save(item)
-    # print()
+    print(os.getcwd()[:-7].replace("\\", "/") + "data/")
     pass
