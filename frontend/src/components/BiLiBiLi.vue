@@ -1,5 +1,4 @@
 <template>
-    <el-col>
         <el-row style="margin:auto;width: 1100px; margin:5px;">
             <img src="https://www.suredian.com/static/images/res/bilibili.svg" alt="" width="50">
             <span style="font-size:40px;padding: 10px;">哔哩哔哩</span>
@@ -74,7 +73,6 @@
                 </el-row>
             </el-col>
         </el-row>
-    </el-col>
 </template>
 
 <script>

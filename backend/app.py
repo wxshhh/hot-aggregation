@@ -6,6 +6,8 @@ from common.mysql_operate import db  # 从common包中导入mysql_operate，使�
 import datetime
 import os
 
+from crawler.word_cloud import get_data, get_senti
+
 app = Flask(__name__)
 # 配置全局跨域
 CORS(app, supports_credentials=True)
@@ -145,6 +147,13 @@ def delete():
         return '删除成功'
     else:
         return '不存在此id'
+
+
+@app.route("/sentiments")
+def get_sentiments():
+    data = get_data()
+    sentiments = get_senti(data)
+    return sentiments
 
 
 if __name__ == '__main__':
